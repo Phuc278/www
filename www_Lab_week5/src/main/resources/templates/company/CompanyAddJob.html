@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="~{Component/loading/HeadPage :: head}"></head>
+<body>
+<p>This is Company Add job</p>
+<p th:text="${id}"></p>
+<nav>
+    <ul>
+        <li><a th:href="@{/Company/Home(ad=${ad})}">Trang chu</a></li>
+        <li><a th:href="@{/Company/AddJob(ad=${ad})}">Dang tuyen nguoi</a></li>
+    </ul>
+</nav>
+
+<div th:if="${#strings.equals(param.error, 'LoiChuaThemJobSkill')}">
+    <p>Chưa thêm Job Skill</p>
+</div>
+
+<form method="post"
+      th:object="${job}"
+      th:action="@{/Company/SaveJob}"
+>
+    <label>Tên công việc: </label>
+    <input type="text" th:field="*{name}" required>
+    <br/>
+    <label>Mô tả công việc: </label>
+    <textarea cols="15" rows="5" th:field="*{description}" required></textarea>
+    <input type="submit" value="Thêm công việc">
+</form>
+
+<p>Thêm job skill</p>
+<div>
+<form method="post"
+      th:object="${jobSkill}"
+      th:action="@{/Company/SaveJobSkill(ad=${ad})}"
+>
+    <label>Cấp độ kỹ năng: </label>
+    <select th:field="*{skillLevel}">
+        <option th:each="item : ${listSkillLevel}" th:value="${item}" th:text="${item}"></option>
+    </select>
+    <br/>
+
+    <label>Thông tin thêm: </label>
+    <textarea cols="15" rows="5" th:field="*{moreInfo}" required></textarea>
+    <br/>
+
+    <label>Kỹ năng: </label>
+    <select th:field="*{skill}">
+        <option th:each="item : ${listSkill}" th:value="${item.id}" th:text="${item.skillName}"></option>
+    </select>
+    <br/>
+    <input type="submit" value="Thêm Job skill">
+</form>
+
+<!--<div th:if="${listJobSkill != null and !#lists.isEmpty(listJobSkill)}">-->
+    <p>Bảng jobSkill</p>
+    <table border="1">
+        <tr>
+            <th>STT</th>
+            <th>Tên kỹ năng</th>
+            <th>Cấp độ</th>
+            <th>Thông tin thêm</th>
+            <th>Edit</th>
+        </tr>
+        <tr th:each="item,index : ${listJobSkill}">
+            <td th:text="${index.count}"></td>
+            <td th:text="${item.skill.skillName}"></td>
+            <td th:text =${item.skillLevel}></td>
+            <td th:text =${item.moreInfo}></td>
+            <td><a>Delete</a></td>
+
+        </tr>
+    </table>
+
+<!--</div>-->
+</div>
+<p>Bảng công việc</p>
+<table border="1">
+    <tr>
+        <th>STT</th>
+        <th>Tên công việc</th>
+        <th>Mô tả công việc</th>
+        <th>Danh sách kỹ năng</th>
+    </tr>
+
+    <tr th:each="item,index : ${listJob}">
+        <td th:text="${index.count}"></td>
+        <td th:text="${item.name}"></td>
+        <td th:text="${item.description}"></td>
+        <td>
+            <ul th:each="phanTu : ${item.jobSkills}">
+                <li th:text="${phanTu.skill.skillName}"></li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="~{Component/loading/HeadPage :: head}"></head>
+<body>
+  <p>This is Update Candidate SKill</p>
+  <nav>
+    <ul>
+      <li><a th:href="@{/Candidate/Home}">Home</a></li>
+      <li><a>Công việc đề xuất</a></li>
+    </ul>
+  </nav>
+<form
+method="post"
+th:action="@{/Candidate/SaveUpdateCanSkill}"
+th:object="${candidateSkill}"
+>
+  <label>Tên kỹ năng: </label>
+  <select th:field="*{skill}">
+    <option th:each="item : ${listSkill}" th:value="${item.id}" th:text="${item.skillName}"></option>
+  </select>
+  <br/>
+  <label>Cấp độ kỹ năng: </label>
+  <select th:field="*{skillLevel}">
+    <option th:each="item : ${listSkillLevel}" th:value="${item}" th:text="${item}"></option>
+  </select>
+  <br>
+  <label>Thông tin thêm: </label>
+  <textarea cols="15" rows="5" required th:field="*{moreInfo}"></textarea>
+  <br>
+  <input type="submit" value="Thêm Kỹ năng">
+</form>
+
+<p>Bảng kỹ năng</p>
+<table>
+  <tr>
+    <th>STT</th>
+    <th>Kỹ năng</th>
+    <th>Thông tin thêm</th>
+    <th>Cấp độ kỹ năng</th>
+  </tr>
+  <tr th:each="item,index : ${listCandidateSkill}">
+    <td th:text="${index.count}"></td>
+    <td th:text="${item.skill.skillName}"></td>
+    <td th:text="${item.moreInfo}"></td>
+    <td th:text="${item.skillLevel}"></td>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="~{Component/loading/HeadPage :: head}"></head>
+<body>
+<h1>This is Candidate Home</h1>
+<nav>
+    <ul>
+        <li><a th:href="@{/Candidate/Home}">Home</a></li>
+        <li th:if="${session.idCan} != -1"><a th:href="@{/Candidate/JobRecoment}">Công việc đề xuất</a></li>
+    </ul>
+</nav>
+
+<button><a th:href="@{/Candidate/Login}">Login</a></button>
+<button><a th:href="@{/Candidate/SignUp}">SignUp</a></button>
+<button th:if="${session.idCan} != -1"><a>Cập nhật thông tin</a></button>
+<button th:if="${session.idCan} != -1"><a th:href="@{/Candidate/UpdateSkill}">Cập nhật Skill</a></button>
+
+
+<div th:each="item : ${JobVaListSkillDeXuat}">
+    <label>Tên công việc: </label> <h3 th:text="${item.job.name}"></h3>
+    <br>
+    <label>Kỹ năng công việc: </label>
+    <ul th:each="jskill: ${item.job.jobSkills}">
+        <li th:text="${jskill.skill.skillName}"></li>
+    </ul>
+    <br>
+    <label>Công ty: </label> <h3 th:text="${item.job.company.name}"></h3>
+    <label th:if="${!#lists.isEmpty(item.listSkillDeXuat)}">Kỹ năng còn thiếu</label>
+    <ul th:each="skill : ${item.listSkillDeXuat}">
+        <li th:text="${skill}">
+        </li>
+    </ul>
+</div>
+</body>
+</html>

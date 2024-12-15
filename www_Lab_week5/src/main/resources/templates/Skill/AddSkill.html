@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="~{Component/loading/HeadPage :: head}"></head>
+<body>
+<p>This is addSkill page</p>
+
+<p>Them skill</p>
+<form method="post"
+      th:object="${skill}"
+      th:action="@{/Skill/SaveSkill}"
+>
+  <label>Tên kỹ năng: </label> <input type="text" th:field="*{skillName}" required>
+  <br/>
+  <label>Loại kỹ năng: </label>
+  <select th:field="*{type}">
+    <option th:each="item : ${listSkillType}" th:text="${item}" th:value="${item}"></option>
+  </select>
+  <br/>
+  <label>Mô tả kỹ năng: </label> <textarea cols="15" rows="5" th:field="*{skillDescription}" wrap="hard" required></textarea>
+  <br/>
+  <input type="submit" value="Thêm"/>
+</form>
+
+<table border="1">
+  <tr>
+    <th>STT</th>
+    <th>Tên kỹ năng</th>
+    <th>Loại kỹ năng</th>
+    <th>Mô tả kỹ năng</th>
+    <th>Edit</th>
+  </tr>
+
+  <tr th:each="item, index : ${listSkill}">
+
+    <td th:text="${index.count}"></td>
+    <td th:text="${item.skillName}"></td>
+    <td th:text="${item.type}"></td>
+    <td th:text="${item.skillDescription}"></td>
+    <td><a>Edit</a> <a>Delete</a></td>
+
+  </tr>
+</table>
+</body>
+</html>

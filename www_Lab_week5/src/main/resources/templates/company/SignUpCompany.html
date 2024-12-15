@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="~{Component/loading/HeadPage :: head}"></head>
+<body>
+<h1>This is SignUpCompanny</h1>
+<form
+        method="post"
+        th:action="@{${saveSignUpCom}}"
+        th:object="${userPassCompany}"
+>
+
+  <label>Tên đăng nhập: </label> <input type="text" th:field="*{userName}" required>
+  <br/>
+  <label>Tên công ty: </label> <input type="text" th:field="*{company.name}" required>
+  <br/>
+  <label>Số diện thoại công ty: </label> <input type="number" th:field="*{company.phone}"  required>
+  <br/>
+  <label>Email công ty: </label> <input type="email" th:field="*{company.email}" required>
+  <br/>
+  <label>Mật khẩu: </label> <input type="text" th:field="*{password}" required>
+  <br/>
+  <input type="submit" value="Đăng ký" >
+</form>
+
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    // Lấy giá trị phanHoi từ phần tử HTML với id="phanHoi"
+    var phanHoi = /*[[${phanHoi}]]*/ '';
+    if (phanHoi === 'EmailAndPhoneNotOke') {
+        alert('Email và số điện thoại đã tồn tại!');
+    } else if (phanHoi === 'UserNotOk') {
+        alert('Tên đăng nhập đã tồn tại!');
+    }
+    /*]]>*/
+  </script>
+
+</body>
+</html>

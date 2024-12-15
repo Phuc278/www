@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="~{Component/loading/HeadPage :: head}"></head>
+<body>
+<h1>This is login company</h1>
+
+<form
+        method="post"
+        th:action="@{${goCompanyHome}}"
+        th:object="${userPassCompany}"
+>
+    <div th:if="${#strings.equals(param.error, 'UserPassNotOk')}">
+        <p>Sai tên đăng nhập hoặc mật khẩu</p>
+    </div>
+
+    <label>User Name</label> <input type="text" th:field="*{userName}" required placeholder="UserName">
+    <br/>
+    <label>Password</label> <input type="password" th:field="*{password}" required placeholder="Password">
+    <br/>
+        <input type="submit" value="Đăng nhập">
+</form>
+<br />
+
+    <a th:href="@{${signUp}}">Don't have Account SignUp here</a>
+
+
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="~{Component/loading/HeadPage :: head}"></head>
+<body>
+<h1>This is SignUpCompanny</h1>
+<form
+        method="post"
+        th:action="@{/Candidate/SaveCandidate}"
+        th:object="${userPassCandidate}"
+>
+  <p th:if="${#strings.equals(param.error,'UserNameNotOk')}">Tên đăng nhập đã tồn tại</p>
+<label>Tên đăng nhập: </label>
+  <input type="text" required th:field="*{userName}">
+<br/>
+  <label>Tên: </label>
+  <input type="text" required th:field="*{candidate.fullName}" >
+  <br/>
+  <p th:if="${#strings.equals(param.error, 'PhoneNotOk')}">Số điện thoại đã tồn tại</p>
+  <label>Số diện thoại: </label>
+  <input type="number" required th:field="*{candidate.phone}" >
+  <br/>
+  <p th:if="${#strings.equals(param.error,'EmailNotOk')}">Email đã tồn tại</p>
+  <label>Email: </label>
+  <input type="email" required th:field="*{candidate.email}">
+  <br/>
+  <label>Mật khẩu: </label>
+  <input type="password" required th:field="*{password}">
+  <br/>
+  <input type="submit" value="Đăng ký">
+</form>
+
+</body>
+</html>
